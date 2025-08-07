@@ -4,12 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>文档编辑</title>
+  <title>学治模块</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h2>📝 编辑文档</h2>
+  <h2>📚 编辑：<span id="subject-name">科目名称</span></h2>
   <div class="editor">
+    <label for="mode">请选择文档类型：</label>
+    <select id="mode" onchange="loadContent()">
+      <option value="plan">计划</option>
+      <option value="report">报告</option>
+    </select>
+
     <label for="titleInput">标题：</label>
     <input type="text" id="titleInput" class="title-input" placeholder="请输入标题" />
 
@@ -22,46 +28,74 @@
     <div class="btn-group">
       <button onclick="saveContent()">💾 保存</button>
       <button onclick="exportPDF()">📄 导出 PDF</button>
+      <button onclick="polishText()">🪄 润色</button>
+      <button onclick="proofreadText()">🔍 校对</button>
     </div>
   </div>
 
   <script>
-    // 自动保存
+    const subject = window.location.pathname.split("/").pop().split(".")[0];
+    const subjectName = {
+      yuwen: "语文厅",
+      math: "数学部",
+      english: "英语部",
+      history: "历史部",
+      geo: "地理部",
+      politics: "政治部"
+    }[subject] || "未知科目";
+
+    document.getElementById("subject-name").innerText = subjectName;
+
     const titleInput = document.getElementById("titleInput");
     const refInput = document.getElementById("refInput");
     const bodyInput = document.getElementById("bodyInput");
-
-    // 加载保存内容
-    titleInput.value = localStorage.getItem("doc_title") || "";
-    refInput.value = localStorage.getItem("doc_ref") || "";
-    bodyInput.value = localStorage.getItem("doc_body") || "";
+    const mode = document.getElementById("mode");
 
     function saveContent() {
-      localStorage.setItem("doc_title", titleInput.value);
-      localStorage.setItem("doc_ref", refInput.value);
-      localStorage.setItem("doc_body", bodyInput.value);
+      localStorage.setItem(subject + "_title_" + mode.value, titleInput.value);
+      localStorage.setItem(subject + "_ref_" + mode.value, refInput.value);
+      localStorage.setItem(subject + "_body_" + mode.value, bodyInput.value);
       alert("内容已保存！");
     }
 
-    function exportPDF() {
-      const title = titleInput.value;
-      const ref = refInput.value;
-      const body = bodyInput.value;
+    function loadContent() {
+      titleInput.value = localStorage.getItem(subject + "_title_" + mode.value) || "";
+      refInput.value = localStorage.getItem(subject + "_ref_" + mode.value) || "";
+      bodyInput.value = localStorage.getItem(subject + "_body_" + mode.value) || "";
+    }
 
+    function exportPDF() {
       const doc = new window.jspdf.jsPDF();
       doc.setFont("simsun", "normal");
       doc.setFontSize(18);
       doc.setTextColor(200, 0, 0);
-      doc.text(title, 20, 30);
-
+      doc.text(titleInput.value, 20, 30);
       doc.setFontSize(12);
       doc.setTextColor(0, 0, 0);
-      doc.text(ref, 20, 40);
-
-      const lines = doc.splitTextToSize(body, 170);
+      doc.text(refInput.value, 20, 40);
+      const lines = doc.splitTextToSize(bodyInput.value, 170);
       doc.text(lines, 20, 55);
-      doc.save("document.pdf");
+      doc.save(subject + "_" + mode.value + ".pdf");
     }
+
+    function polishText() {
+      bodyInput.value = bodyInput.value
+        .replace(/很多/g, "诸多")
+        .replace(/非常/g, "极为")
+        .replace(/大家/g, "各位")
+        .replace(/我们要/g, "应当")
+        .replace(/有时候/g, "有时");
+    }
+
+    function proofreadText() {
+      let msg = "";
+      if (bodyInput.value.includes("的的")) msg += "检测到重复的“的”。\n";
+      if (bodyInput.value.includes("是是")) msg += "检测到重复的“是”。\n";
+      if (bodyInput.value.includes("有有")) msg += "检测到重复的“有”。\n";
+      alert(msg || "未发现明显错别字！");
+    }
+
+    loadContent(); // 初始化
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
