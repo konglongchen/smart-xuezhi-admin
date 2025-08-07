@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>智能学治指挥系统</title>
+  <title>智能学治指挥系统 v2.5</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -16,21 +16,21 @@
     <nav class="menu">
       <h3>主科</h3>
       <ul>
-        <li><a href="#">📘 语文厅</a></li>
-        <li><a href="#">📗 数学部</a></li>
-        <li><a href="#">📙 英语部</a></li>
+        <li><a href="yuwen.html">📘 语文厅</a></li>
+        <li><a href="math.html">📗 数学部</a></li>
+        <li><a href="english.html">📙 英语部</a></li>
       </ul>
       <h3>综合科</h3>
       <ul>
-        <li><a href="#">📕 历史部</a></li>
-        <li><a href="#">🌍 地理部</a></li>
-        <li><a href="#">🏛️ 政治部</a></li>
+        <li><a href="history.html">📕 历史部</a></li>
+        <li><a href="geo.html">🌍 地理部</a></li>
+        <li><a href="politics.html">🏛️ 政治部</a></li>
       </ul>
     </nav>
   </aside>
 
   <main class="main-content">
-    <h1>📌 最新计划与报告</h1>
+    <h1>📌 最新计划与报告（v2.5）</h1>
     <div id="latestContent" class="cards-container">
       <p class="empty">暂无任何计划或报告内容。</p>
     </div>
@@ -38,7 +38,8 @@
 
   <script>
     function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("collapsed");
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("collapsed");
       document.body.classList.toggle("sidebar-collapsed");
     }
 
