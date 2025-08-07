@@ -1,27 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>智能学治指挥系统 - 管理员端</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>智能学治指挥系统</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>📚 智能学治指挥系统</h1>
+  
+<nav class="menu-bar">
+  <div class="menu-group">
+    <span>主科：</span>
+    <a href="yuwen.html">语文厅</a>
+    <a href="math.html">数学部</a>
+    <a href="english.html">英语部</a>
+  </div>
+  <div class="menu-group">
+    <span>综合科：</span>
+    <a href="history.html">历史部</a>
+    <a href="geo.html">地理部</a>
+    <a href="politics.html">政治部</a>
+  </div>
+</nav>
+
   <div class="card-container">
-    <div class="card"><a href="chinese_plan.html">语文厅 - 计划</a></div>
-    <div class="card"><a href="chinese_report.html">语文厅 - 报告</a></div>
-    <div class="card"><a href="math_plan.html">数学部 - 计划</a></div>
-    <div class="card"><a href="math_report.html">数学部 - 报告</a></div>
-    <div class="card"><a href="english_plan.html">英语部 - 计划</a></div>
-    <div class="card"><a href="english_report.html">英语部 - 报告</a></div>
-    <div class="card"><a href="history_plan.html">历史部 - 计划</a></div>
-    <div class="card"><a href="history_report.html">历史部 - 报告</a></div>
-    <div class="card"><a href="geography_plan.html">地理部 - 计划</a></div>
-    <div class="card"><a href="geography_report.html">地理部 - 报告</a></div>
-    <div class="card"><a href="politics_plan.html">政治部 - 计划</a></div>
-    <div class="card"><a href="politics_report.html">政治部 - 报告</a></div>
+    <div class="card" data-subject="语文厅"><a href="yuwen.html">📝 语文厅</a></div>
+<div class="card" data-subject="数学部"><a href="math.html">➗ 数学部</a></div>
+<div class="card" data-subject="英语部"><a href="english.html">🔤 英语部</a></div>
+<div class="card" data-subject="历史部"><a href="history.html">📜 历史部</a></div>
+<div class="card" data-subject="地理部"><a href="geo.html">🌍 地理部</a></div>
+<div class="card" data-subject="政治部"><a href="politics.html">🏛️ 政治部</a></div>
+
   </div>
 </body>
 </html>
