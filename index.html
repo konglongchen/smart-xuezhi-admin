@@ -1,37 +1,69 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>智能学治指挥系统</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>📚 智能学治指挥系统</h1>
-  
-<nav class="menu-bar">
-  <div class="menu-group">
-    <span>主科：</span>
-    <a href="yuwen.html">语文厅</a>
-    <a href="math.html">数学部</a>
-    <a href="english.html">英语部</a>
-  </div>
-  <div class="menu-group">
-    <span>综合科：</span>
-    <a href="history.html">历史部</a>
-    <a href="geo.html">地理部</a>
-    <a href="politics.html">政治部</a>
-  </div>
-</nav>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+      <h2>学治系统</h2>
+    </div>
+    <nav class="menu">
+      <h3>主科</h3>
+      <ul>
+        <li><a href="yuwen.html">📘 语文厅</a></li>
+        <li><a href="math.html">📗 数学部</a></li>
+        <li><a href="english.html">📙 英语部</a></li>
+      </ul>
+      <h3>综合科</h3>
+      <ul>
+        <li><a href="history.html">📕 历史部</a></li>
+        <li><a href="geo.html">🌍 地理部</a></li>
+        <li><a href="politics.html">🏛️ 政治部</a></li>
+      </ul>
+    </nav>
+  </aside>
 
-  <div class="card-container">
-    <div class="card" data-subject="语文厅"><a href="yuwen.html">📝 语文厅</a></div>
-<div class="card" data-subject="数学部"><a href="math.html">➗ 数学部</a></div>
-<div class="card" data-subject="英语部"><a href="english.html">🔤 英语部</a></div>
-<div class="card" data-subject="历史部"><a href="history.html">📜 历史部</a></div>
-<div class="card" data-subject="地理部"><a href="geo.html">🌍 地理部</a></div>
-<div class="card" data-subject="政治部"><a href="politics.html">🏛️ 政治部</a></div>
+  <main class="main-content">
+    <h1>📌 最新计划与报告</h1>
+    <div id="latestContent" class="cards-container">
+      <p>加载中...</p>
+    </div>
+  </main>
 
-  </div>
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("collapsed");
+    }
+
+    const subjects = ["yuwen", "math", "english", "history", "geo", "politics"];
+    let latest = [];
+
+    for (let sub of subjects) {
+      ["plan", "report"].forEach(type => {
+        const title = localStorage.getItem(sub + "_title_" + type);
+        const body = localStorage.getItem(sub + "_body_" + type);
+        if (title && body) {
+          latest.push({ subject: sub, type, title, body });
+        }
+      });
+    }
+
+    setTimeout(() => {
+      const container = document.getElementById("latestContent");
+      container.innerHTML = latest.map(item =>
+        `<div class="card">
+          <h3>${item.subject.toUpperCase()} - ${item.type === "plan" ? "计划" : "报告"}</h3>
+          <h4 class="title">${item.title}</h4>
+          <p>${item.body.slice(0, 100)}...</p>
+        </div>`
+      ).join("") || "<p>暂无内容</p>";
+    }, 200);
+  </script>
 </body>
 </html>
