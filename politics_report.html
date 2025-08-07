@@ -2,17 +2,24 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>政治部 - 报告</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>政治部 - 报告</h1>
-    <textarea id="content" placeholder="请输入报告内容..."></textarea>
-    <br>
-    <button onclick="downloadFile('politics_report.txt')">⬇ 下载报告</button>
-    <br>
+    <div class="doc">
+        <div id="doc-title" class="doc-title" contenteditable="true">请在此输入标题</div>
+        <div id="doc-number" class="doc-number" contenteditable="true">请输入文号</div>
+        <div id="doc-body" class="doc-body" contenteditable="true">请输入报告正文内容...</div>
+    </div>
+    <button onclick="downloadPDF()">📄 导出为 PDF</button>
     <a class="home-link" href="index.html">⏪ 返回首页</a>
     <script src="script.js"></script>
+    <script>
+        document.getElementById("doc-title").addEventListener("input", autoSave);
+        document.getElementById("doc-number").addEventListener("input", autoSave);
+        document.getElementById("doc-body").addEventListener("input", autoSave);
+    </script>
 </body>
 </html>
