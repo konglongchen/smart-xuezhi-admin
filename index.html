@@ -11,20 +11,20 @@
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-      <h2>学治系统</h2>
+      <h2 class="logo">学治系统</h2>
     </div>
     <nav class="menu">
       <h3>主科</h3>
       <ul>
-        <li><a href="yuwen.html">📘 语文厅</a></li>
-        <li><a href="math.html">📗 数学部</a></li>
-        <li><a href="english.html">📙 英语部</a></li>
+        <li><a href="#">📘 语文厅</a></li>
+        <li><a href="#">📗 数学部</a></li>
+        <li><a href="#">📙 英语部</a></li>
       </ul>
       <h3>综合科</h3>
       <ul>
-        <li><a href="history.html">📕 历史部</a></li>
-        <li><a href="geo.html">🌍 地理部</a></li>
-        <li><a href="politics.html">🏛️ 政治部</a></li>
+        <li><a href="#">📕 历史部</a></li>
+        <li><a href="#">🌍 地理部</a></li>
+        <li><a href="#">🏛️ 政治部</a></li>
       </ul>
     </nav>
   </aside>
@@ -32,13 +32,14 @@
   <main class="main-content">
     <h1>📌 最新计划与报告</h1>
     <div id="latestContent" class="cards-container">
-      <p>加载中...</p>
+      <p class="empty">暂无任何计划或报告内容。</p>
     </div>
   </main>
 
   <script>
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("collapsed");
+      document.body.classList.toggle("sidebar-collapsed");
     }
 
     const subjects = ["yuwen", "math", "english", "history", "geo", "politics"];
@@ -56,13 +57,17 @@
 
     setTimeout(() => {
       const container = document.getElementById("latestContent");
+      if (latest.length === 0) return;
       container.innerHTML = latest.map(item =>
-        `<div class="card">
-          <h3>${item.subject.toUpperCase()} - ${item.type === "plan" ? "计划" : "报告"}</h3>
-          <h4 class="title">${item.title}</h4>
-          <p>${item.body.slice(0, 100)}...</p>
+        `<div class="card card-${item.subject}">
+          <div class="card-header">
+            <span class="subject-tag">${item.subject.toUpperCase()}</span>
+            <span class="type">${item.type === "plan" ? "计划" : "报告"}</span>
+          </div>
+          <h3 class="title">${item.title}</h3>
+          <p>${item.body.slice(0, 80)}...</p>
         </div>`
-      ).join("") || "<p>暂无内容</p>";
+      ).join("");
     }, 200);
   </script>
 </body>
